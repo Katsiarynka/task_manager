@@ -7,13 +7,13 @@ from .models import Task
 class TaskSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()
     status_display = serializers.SerializerMethodField()
-    assigned = serializers.SlugRelatedField(
-        read_only=True, slug_field=User.USERNAME_FIELD, required=False)
+    assigned = serializers.SlugRelatedField(slug_field=User.USERNAME_FIELD,
+                                            queryset=User.objects.all())
 
     class Meta:
         model = Task
         fields = ('id', 'name', 'description', 'status_display', 'order',
-                    'assigned', 'project', 'links', 'started', 'due', 'completed')
+                  'assigned', 'project', 'links', 'started', 'due', 'completed')
 
     def get_status_display(self, obj):
         return obj.get_status_display()
