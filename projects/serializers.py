@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from users.models import ROLE_DEVELOPER, ROLE_MANAGER
+
 from .models import Project
+from users.models import ROLE_DEVELOPER, ROLE_MANAGER
 
 
 class ProjectSerializer(serializers.ModelSerializer):
