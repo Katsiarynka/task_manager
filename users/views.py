@@ -1,13 +1,12 @@
 from rest_framework import viewsets
-from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
 
 from users.models import User
 from users.permissions import UserPermission
-from users.serializers import UserSerializer, UserRegistration
+from users.serializers import UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet, APIView):
     """API endpoint for listing users."""
     lookup_field = User.USERNAME_FIELD
     lookup_url_kwarg = User.USERNAME_FIELD
@@ -15,13 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = UserPermission,
 
-
-class UserRegister(generics.CreateAPIView):
-    permission_classes = (AllowAny, )
-    serializer_class = UserRegistration
-
     def perform_create(self, serializer):
         serializer.save(role_name=self.request.data.get('role_name', None))
-
 
 
