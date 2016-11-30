@@ -15,8 +15,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     def get_links(self, obj):
         request = self.context['request']
         return {
-            'self': reverse('project-detail',
-                            kwargs={'pk': obj.pk}, request=request),
+            'self': reverse('project-detail', kwargs={'pk': obj.pk}, request=request),
         }
 
     def get_role_users(self, obj):

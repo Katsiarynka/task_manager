@@ -1,11 +1,12 @@
 import django_filters
-from rest_framework_filters import AllLookupsFilter
+from projects.models import Project
+from rest_framework.filters import BaseFilterBackend
 
-from tasks.models import Task
+from .models import Task
 from users.models import User
 
 
-class TaskFilter(django_filters.FilterSet):
+class TaskFilterByField(django_filters.FilterSet):
 
     class Meta:
         model = Task
@@ -14,3 +15,13 @@ class TaskFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.filters['assigned'].extra.update({'to_field_name': User.USERNAME_FIELD})
+
+
+class TaskFilterByPermissions(BaseFilterBackend):
+
+    def filter_queryset(self, request, queryset, view):
+        data = {}
+        if request.user.developer:
+            projects = Project.objects.filter(users__in=[request.user.id])
+            data = {'project__in': projects.values_list('id', flat=True)}
+        return queryset.filter(**data)

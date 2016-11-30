@@ -15,7 +15,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     filter_backends = ProjectFilterByRole, DjangoFilterBackend
     filter_class = ProjectFilterByField
     filter_fields = Project._meta.get_fields()
-    search_fields = ('name', 'description')
     ordering_fields = ('name', 'start', 'release')
 
 
