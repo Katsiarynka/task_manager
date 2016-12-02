@@ -24,6 +24,7 @@ SECRET_KEY = '_c9eem8_j*j*z$!5wn+&bob)jj4y*vrbr2hiogtq7-u3e^yq+t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+TEST = False
 
 ALLOWED_HOSTS = []
 
@@ -37,10 +38,13 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'rest_framework.authtoken',
+    'django_celery_results',
+    'django_celery_beat',
     # Internal
     'projects',
     'users',
     'tasks',
+    'notifications'
 ]
 
 MIDDLEWARE = [
@@ -142,6 +146,34 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = 'lalalala'
 EMAIL_HOST_PASSWORD = 'lalalala'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s',
+            'datefmt': '%y %b %d, %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'console': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 try:
     from .local_settings import *

@@ -12,5 +12,15 @@
     "fields": {
       "name": "Developer"
     }
+  },
+  {
+    "model": "users.User",
+    "fields": {
+      "role_id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "is_staff": true,
+      "is_active": true
+    }
   }
 ]

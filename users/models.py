@@ -18,7 +18,7 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
-    role = models.ForeignKey(Role)
+    role = models.ForeignKey(Role, null=True)
 
     @property
     def manager(self):
