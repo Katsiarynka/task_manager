@@ -16,11 +16,12 @@ app = Celery()
 def setup_periodic_tasks(sender, **kwargs):
     schedule, created = IntervalSchedule\
         .objects.get_or_create(every=3, period=IntervalSchedule.HOURS,)
-    PeriodicTask.objects.get_or_create(interval=schedule, name='check_new_tasks',
-                                       task='check_new_tasks', args=json.dumps(['every 3 hours']),)
+    PeriodicTask.objects.get_or_create(interval=schedule, name='notifications.check_new_tasks',
+                                       task='notifications.check_new_tasks',
+                                       args=json.dumps(['every 3 hours']),)
 
 
-@app.task(bind=True, name='check_new_tasks')
+@app.task(bind=True, name='notifications.check_new_tasks')
 def check_new_tasks(self, period="from db"):
     try:
         last_worker = MessageWorker.objects.latest('created')
