@@ -4,11 +4,9 @@ from task_manager.tests import BaseTests
 
 class ProjectTest(BaseTests):
 
-    @classmethod
     def setUp(self):
         email = "%s@test.com"
         password = '12345'
-
         username = 'manager'
         role = self.role_manager
         self.manager = self.create_user(username, email % username, password, role)
