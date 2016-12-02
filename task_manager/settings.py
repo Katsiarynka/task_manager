@@ -98,7 +98,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'task_manager.sqlite3'),
-        'TEST':{
+        'TEST': {
             'NAME': os.path.join(BASE_DIR, 'test_task_manager.sqlite3'),
         }
     }
