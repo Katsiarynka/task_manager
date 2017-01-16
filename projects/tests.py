@@ -1,4 +1,5 @@
 from rest_framework.reverse import reverse
+
 from task_manager.tests import BaseTests
 
 

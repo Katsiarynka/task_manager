@@ -55,10 +55,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'task_manager.urls'
 
+PROJECT_PATH = os.path.dirname(os.path.abspath(os.path.join(os.path.abspath(__file__), '..')))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.abspath(os.path.join(PROJECT_PATH, 'templates')),
+                 os.path.abspath(os.path.join(PROJECT_PATH, 'static')), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,6 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'users.User'
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = 'static'
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
